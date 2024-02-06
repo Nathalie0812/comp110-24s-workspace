@@ -2,41 +2,39 @@
 
 __author__ = "730621537"
 
-BLUE_BOX: str = "\U0001F7E6"
-RED_BOX: str = "\U0001F7E5"
-WHITE_BOX: str = "\U00002B1C"
+BLUE_BOX: str = "🟦"
+RED_BOX: str = "🟥"
+WHITE_BOX: str = "⬜"
 
-def main():
-    grid_size = 4
-    secret_row = 3
-    secret_column = 2
-    
-    guess_row = int(input("Guess a row: "))
-    guess_column = int(input("Guess a column: "))
+grid_size = 4
+secret_row = 3
+secret_column = 2
 
-    if guess_row == secret_row and guess_column == secret_column:
-        print("Hit!")
-    elif (guess_row < 1 or guess_row > grid_size) or (guess_column < 1 or guess_column > grid_size):
-        print("Out of bounds!")
-    else:
-        print("Miss!")
-    
-    row_counter = 1
-    while row_counter <= grid_size:
-        row_string = ""
-        column_counter = 1
-        while column_counter <= grid_size:
-            if guess_row == row_counter and guess_column == column_counter:
-                if guess_row == secret_row and guess_column == secret_column:
-                    row_string += RED_BOX
-                else:
-                    row_string += WHITE_BOX
-            else:
-                row_string += BLUE_BOX
-            column_counter += 1
-        print(row_string)
-        row_counter += 1
+print(f"Guess a row: ", end="")
+guess_row = int(input())
+while guess_row < 1 or guess_row > grid_size:
+    print(f"The grid is only {grid_size} by {grid_size}. Try again: ", end="")
+    guess_row = int(input())
 
-if __name__ == "__main__":
-    main()
-    
+print(f"Guess a column: ", end="")
+guess_column = int(input())
+while guess_column < 1 or guess_column > grid_size:
+    print(f"The grid is only {grid_size} by {grid_size}. Try again: ", end="")
+    guess_column = int(input())
+
+if guess_row == secret_row and guess_column == secret_column:
+    print("Hit!")
+else:
+    print("Miss!")
+
+# Print the grid after the guess
+for row_counter in range(1, grid_size + 1):
+    emoji_row = ""
+    for column_counter in range(1, grid_size + 1):
+        if row_counter == guess_row and column_counter == guess_column:
+            emoji_row += WHITE_BOX
+        elif row_counter == secret_row and column_counter == secret_column:
+            emoji_row += RED_BOX
+        else:
+            emoji_row += BLUE_BOX
+    print(emoji_row)
